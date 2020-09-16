@@ -1,0 +1,26 @@
+void setup()                                  # To initialise variables, pin modes,libraries
+{
+pinMode(7,OUTPUT);                            # Digital pin of arduino is connected to Buzzer(Output)
+pinMode(8,OUTPUT);                            # Digital pin of arduino is connected to LED(Output)
+pinMode(A0,INPUT);                            #Analog  pin of arduino is connected to Sensor(Input)
+Serial.begin(9600);                           #Sets the data rate in bits per second (baud) for serial data transmission
+}
+void loop()
+{
+  float sensorValue;
+  sensorValue = analogRead(A0);
+  Serial.println( sensorValue);
+  delay(1000);
+   if(sensorValue>300)                       
+   {
+     Serial.println("Leakage of gas");        #When the sensor reads value more than 300, there is alarm
+     digitalWrite(7,1);
+     digitalWrite(8,1);
+   }
+   else
+   {
+     Serial.println("Gas at normal level");  
+     digitalWrite(7,0);
+     digitalWrite(8,0);
+   }
+}
